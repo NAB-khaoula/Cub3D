@@ -6,7 +6,7 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 09:00:13 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/11 10:23:30 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/12 14:54:17 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,15 @@ void    init_checker(t_struct    *gnrl)
     gnrl->map.check_f = 0;
     gnrl->map.check_c = 0;
     gnrl->map.check_m = 0;
+}
+
+void    ft_free(char **str)
+{
+    while(*str)
+    {
+        free(*str);
+        str++;
+    }
 }
 
 void    parsing(t_struct   *gnrl, char *argv)

@@ -6,7 +6,7 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 10:42:24 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/11 14:10:58 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/12 14:31:23 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,37 +52,34 @@ void	ft_init(t_struct *gnrl)
 	gnrl->xpm_file_img_1 = mlx_xpm_file_to_image(gnrl->ptr, gnrl->map.south, &gnrl->tw, &gnrl->th);
 	gnrl->xpm_file_img_2 = mlx_xpm_file_to_image(gnrl->ptr, gnrl->map.west, &gnrl->tw, &gnrl->th);
 	gnrl->xpm_file_img_3 = mlx_xpm_file_to_image(gnrl->ptr, gnrl->map.east, &gnrl->tw, &gnrl->th);
+	gnrl->sprite.spr_img = mlx_xpm_file_to_image(gnrl->ptr, gnrl->map.sprite, &gnrl->sprite.spr_w, &gnrl->sprite.spr_h);
+	gnrl->texture = (int *)mlx_get_data_addr(gnrl->img, &gnrl->bits_per_pixel, &gnrl->size_line, &gnrl->endian);
+	gnrl->data_sky = (int *)mlx_get_data_addr(gnrl->img, &gnrl->bits_per_pixel, &gnrl->size_line, &gnrl->endian);
 	gnrl->data = (int *)mlx_get_data_addr(gnrl->xpm_file_img, &gnrl->bits_per_pixel, &gnrl->size_line, &gnrl->endian);
 	gnrl->data_1 = (int *)mlx_get_data_addr(gnrl->xpm_file_img_1, &gnrl->bits_per_pixel, &gnrl->size_line, &gnrl->endian);
 	gnrl->data_2 = (int *)mlx_get_data_addr(gnrl->xpm_file_img_2, &gnrl->bits_per_pixel, &gnrl->size_line, &gnrl->endian);
 	gnrl->data_3 = (int *)mlx_get_data_addr(gnrl->xpm_file_img_3, &gnrl->bits_per_pixel, &gnrl->size_line, &gnrl->endian);
+	gnrl->sprite.spr_texture = (int *)mlx_get_data_addr(gnrl->sprite.spr_img, &gnrl->sprite.spr_bbp, &gnrl->sprite.spr_s_l, &gnrl->sprite.spr_end);
 	gnrl->texwidth = gnrl->tw;
 	gnrl->texheight = gnrl->th;
-}
-
-void	init_image(t_struct *gnrl, t_sprite	*sprite)
-{
-	gnrl->texture = (int *)mlx_get_data_addr(gnrl->img, &gnrl->bits_per_pixel, &gnrl->size_line, &gnrl->endian);
-	gnrl->data_sky = (int *)mlx_get_data_addr(gnrl->img, &gnrl->bits_per_pixel, &gnrl->size_line, &gnrl->endian);
-	sprite->spr_img = mlx_xpm_file_to_image(gnrl->ptr, gnrl->map.sprite, &sprite->spr_w, &sprite->spr_h);
-	sprite->spr_texture = (int *)mlx_get_data_addr(sprite->spr_img, &sprite->spr_bbp, &sprite->spr_s_l, &sprite->spr_end);
+	flour_ceil_var(gnrl);
 }
 
 void    init_var(t_struct *gnrl)
 {
-	gnrl->cameraX = 2 * gnrl->x / (double)gnrl->map.resol_w - 1;
-	gnrl->raydirX = gnrl->map.dir_x + gnrl->map.plane_x * gnrl->cameraX;
-	gnrl->raydirY = gnrl->map.dir_y + gnrl->map.plane_y * gnrl->cameraX;
+	gnrl->camerax = 2 * gnrl->x / (double)gnrl->map.resol_w - 1;
+	gnrl->raydirx = gnrl->map.dir_x + gnrl->map.plane_x * gnrl->camerax;
+	gnrl->raydiry = gnrl->map.dir_y + gnrl->map.plane_y * gnrl->camerax;
 	gnrl->map_x = (int)gnrl->map.pos_x;
 	gnrl->map_y = (int)gnrl->map.pos_y;
-	gnrl->delta_dist_x = fabs(1 / gnrl->raydirX);
-	gnrl->delta_dist_y = fabs(1 / gnrl->raydirY);
+	gnrl->delta_dist_x = fabs(1 / gnrl->raydirx);
+	gnrl->delta_dist_y = fabs(1 / gnrl->raydiry);
 	gnrl->hit = 0;
 }
 
 void	init_dist(t_struct *gnrl)
 {
-	if (gnrl->raydirX < 0)
+	if (gnrl->raydirx < 0)
   	{
    		gnrl->step_x = -1;
 		gnrl->side_dist_x = (gnrl->map.pos_x - gnrl->map_x) * gnrl->delta_dist_x;
@@ -92,7 +89,7 @@ void	init_dist(t_struct *gnrl)
 		gnrl->step_x = 1;
 		gnrl->side_dist_x = (gnrl->map_x + 1.0 - gnrl->map.pos_x) * gnrl->delta_dist_x;
   	}
-  	if (gnrl->raydirY < 0)
+  	if (gnrl->raydiry < 0)
   	{
 		gnrl->step_y = -1;
 		gnrl->side_dist_y = (gnrl->map.pos_y - gnrl->map_y) * gnrl->delta_dist_y;

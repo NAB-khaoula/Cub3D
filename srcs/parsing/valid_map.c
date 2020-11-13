@@ -6,7 +6,7 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 14:49:49 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/10 10:57:25 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/12 12:31:59 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,31 +19,31 @@ void    position(t_struct  *gnrl, int  *i, int *j)
     gnrl->map.pos_y = (double)*j + 0.5;
     if (*(*(gnrl->map.map + *i) + *j) == 'N')
     {
+        gnrl->map.dir_x = -1;
+        gnrl->map.dir_y = 0;
+        gnrl->map.plane_x = 0;
+        gnrl->map.plane_y = 0.66;
+    }
+    else if (*(*(gnrl->map.map + *i) + *j) == 'S')
+    {
+        gnrl->map.dir_x = 1;
+        gnrl->map.dir_y = 0;
+        gnrl->map.plane_x = 0;
+        gnrl->map.plane_y = -0.66;
+    }
+    else if (*(*(gnrl->map.map + *i) + *j) == 'W')
+    {
         gnrl->map.dir_x = 0;
         gnrl->map.dir_y = -1;
         gnrl->map.plane_x = -0.66;
         gnrl->map.plane_y = 0;
     }
-    else if (*(*(gnrl->map.map + *i) + *j) == 'S')
+    else if (*(*(gnrl->map.map + *i) + *j) == 'E')
     {
         gnrl->map.dir_x = 0;
         gnrl->map.dir_y = 1;
         gnrl->map.plane_x = 0.66;
         gnrl->map.plane_y = 0;
-    }
-    else if (*(*(gnrl->map.map + *i) + *j) == 'W')
-    {
-        gnrl->map.dir_x = -1;
-        gnrl->map.dir_y = 0;
-        gnrl->map.plane_x = 0;
-        gnrl->map.plane_y = -0.66;
-    }
-    else if (*(*(gnrl->map.map + *i) + *j) == 'E')
-    {
-        gnrl->map.dir_x = 1;
-        gnrl->map.dir_y = 0;
-        gnrl->map.plane_x = 0;
-        gnrl->map.plane_y = 0.66;
     }
 }
 

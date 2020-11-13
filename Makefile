@@ -6,7 +6,7 @@
 #    By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/07 12:20:20 by knabouss          #+#    #+#              #
-#    Updated: 2020/11/11 13:47:14 by knabouss         ###   ########.fr        #
+#    Updated: 2020/11/12 14:39:53 by knabouss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,8 +46,7 @@ OBJ =  $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-		@gcc  $(OBJ)  -lmlx -framework OpenGL -framework AppKit  -o $(NAME)
-	 	#  gcc $(CFLAGS) $(OBJ)  -lmlx -framework OpenGL -framework AppKit  -o $(NAME)
+	 	@gcc $(CFLAGS) $(OBJ)  -lmlx -framework OpenGL -framework AppKit  -o $(NAME)
 
 clean:
 	@rm -f $(OBJ)

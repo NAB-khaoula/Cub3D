@@ -6,7 +6,7 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 10:41:33 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/11 14:10:07 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/13 09:19:55 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,34 +16,34 @@
 #include <stdio.h>
 
 
-void    sprite_1(t_sprite *sprite, t_struct *gnrl)
+void    draw_sprite(t_struct *gnrl)
 {
   int     i;
 
   i = -1;
-  coord_sprite(sprite, gnrl);
-  sprite->spriteorder = (int *)malloc(sizeof(int) * gnrl->map.num_sprites);
-  sprite->spritedistance = (double *)malloc(sizeof(double) * gnrl->map.num_sprites);
+  coord_sprite(gnrl);
+  gnrl->sprite.spriteorder = (int *)malloc(sizeof(int) * gnrl->map.num_sprites);
+  gnrl->sprite.spritedistance = (double *)malloc(sizeof(double) * gnrl->map.num_sprites);
   while (++i < gnrl->map.num_sprites)
   {
-    *(sprite->spriteorder + i) = i;
-    *(sprite->spritedistance + i) = ((gnrl->map.pos_x - *(sprite->x + i)) * (gnrl->map.pos_x - *(sprite->x + i))
-    + (gnrl->map.pos_y - *(sprite->y + i)) * (gnrl->map.pos_y - *(sprite->y + i)));
+    *(gnrl->sprite.spriteorder + i) = i;
+    *(gnrl->sprite.spritedistance + i) = ((gnrl->map.pos_x - *(gnrl->sprite.x + i)) * (gnrl->map.pos_x - *(gnrl->sprite.x + i))
+    + (gnrl->map.pos_y - *(gnrl->sprite.y + i)) * (gnrl->map.pos_y - *(gnrl->sprite.y + i)));
   }
-  sort_sprite(sprite, gnrl->map.num_sprites);
+  sort_sprite(gnrl, gnrl->map.num_sprites);
     i = -1;
     while (++i < gnrl->map.num_sprites)
     {
-      sprite->spriteX = 0.5 + sprite->x[sprite->spriteorder[i]] - gnrl->map.pos_x;
-      sprite->spriteY = 0.5 + sprite->y[sprite->spriteorder[i]] - gnrl->map.pos_y;
-      sprite->invDet = 1.0 / (gnrl->map.plane_x * gnrl->map.dir_y - gnrl->map.dir_x * gnrl->map.plane_y);
-      sprite->transformX = sprite->invDet * (gnrl->map.dir_y * sprite->spriteX - gnrl->map.dir_x * sprite->spriteY);
-      sprite->transformY = sprite->invDet * (-gnrl->map.plane_y * sprite->spriteX + gnrl->map.plane_x * sprite->spriteY);
-      sprite->spriteScreenX = (int)((gnrl->map.resol_w / 2) * (1 + sprite->transformX / sprite->transformY));
-      sprite->spriteHeight = abs((int)(gnrl->map.resol_h / sprite->transformY));
-      low_high_pixel(sprite, gnrl);                                                                                                                                                
-      width_sprite(sprite, gnrl);
-      draw_vert_stripes(sprite, gnrl);
+      gnrl->sprite.spritex = 0.5 + gnrl->sprite.x[gnrl->sprite.spriteorder[i]] - gnrl->map.pos_x;
+      gnrl->sprite.spritey = 0.5 + gnrl->sprite.y[gnrl->sprite.spriteorder[i]] - gnrl->map.pos_y;
+      gnrl->sprite.invdet = 1.0 / (gnrl->map.plane_x * gnrl->map.dir_y - gnrl->map.dir_x * gnrl->map.plane_y);
+      gnrl->sprite.transform_x = gnrl->sprite.invdet * (gnrl->map.dir_y * gnrl->sprite.spritex - gnrl->map.dir_x * gnrl->sprite.spritey);
+      gnrl->sprite.transform_y = gnrl->sprite.invdet * (-gnrl->map.plane_y * gnrl->sprite.spritex + gnrl->map.plane_x * gnrl->sprite.spritey);
+      gnrl->sprite.spritescreenx = (int)((gnrl->map.resol_w / 2) * (1 + gnrl->sprite.transform_x / gnrl->sprite.transform_y));
+      gnrl->sprite.spriteheight = abs((int)(gnrl->map.resol_h / gnrl->sprite.transform_y));
+      low_high_pixel(gnrl);                                                                                                                                     
+      width_sprite(gnrl);
+      draw_vert_stripes(gnrl);
     }
 }
 
@@ -63,13 +63,17 @@ void  handle_keys(t_struct *gnrl)
 		rotate_left(gnrl);
 }
 
+void	flour_ceil_var(t_struct *gnrl)
+{
+	gnrl->flour = (gnrl->map.flour_r << 16) + (gnrl->map.flour_g << 8) + (gnrl->map.flour_b);
+	gnrl->ceil = (gnrl->map.ceil_r << 16) + (gnrl->map.ceil_g << 8) + (gnrl->map.ceil_b);
+}
+
 int	draw_world(t_struct *gnrl)
 {
-  t_sprite    sprite;
 	gnrl->x = 0;
 	mlx_clear_window(gnrl->ptr, gnrl->win);
-  handle_keys(gnrl);
-	init_image(gnrl, &sprite);
+  	handle_keys(gnrl);
 	while(gnrl->x < gnrl->map.resol_w)
 	{
 		init_var(gnrl);
@@ -81,9 +85,9 @@ int	draw_world(t_struct *gnrl)
 		init_texture(gnrl);
 		texture(gnrl);
 		gnrl->x++;
-    sprite.z_buffer[gnrl->x] = gnrl->perpWallDist;
+    	gnrl->sprite.z_buffer[gnrl->x] = gnrl->perpwalldist;
 	}
-  sprite_1(&sprite, gnrl);
+  	draw_sprite(gnrl);
 	mlx_put_image_to_window(gnrl->ptr, gnrl->win, gnrl->img, 0, 0);
 	return (0);
 }
@@ -114,7 +118,7 @@ int   exit_key()
 
 int key_release(int key, t_struct *gnrl)
 {
-  if (key == 13)
+	if (key == 13)
 		gnrl->key_up = 0;
 	else if (key == 1)
 		gnrl->key_down = 0;
@@ -150,12 +154,12 @@ int main(int argc, char **argv)
       *(argv + 1) = "./map.cub";
     parsing(&gnrl, *(argv + 1));
     ft_init_map(&gnrl);
-	  ft_init(&gnrl);
-	  mlx_hook(gnrl.win,2, 0, press_key, &gnrl);
+	ft_init(&gnrl);
+	mlx_hook(gnrl.win,2, 0, press_key, &gnrl);
     mlx_hook(gnrl.win,3, 0, key_release, &gnrl);
     mlx_hook(gnrl.win,17, 0, exit_key, &gnrl);
-	  mlx_loop_hook(gnrl.ptr, draw_world, &gnrl);
-	  mlx_loop(gnrl.ptr);
+	mlx_loop_hook(gnrl.ptr, draw_world, &gnrl);
+	mlx_loop(gnrl.ptr);
   }
   return (0);
 }

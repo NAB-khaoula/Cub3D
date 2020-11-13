@@ -6,7 +6,7 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 14:36:21 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/09 11:55:24 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/13 09:19:19 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void    check_file(t_struct    *gnrl)
 {
-    if (open(gnrl->map.path, O_RDONLY) == -1 && *gnrl->map.path == '.')
+    if (open(gnrl->map.path, O_RDONLY) == -1)
         ft_error("Error\n FILE NOT EXISTING!");
 }
 
@@ -69,9 +69,15 @@ void    check_flour(t_struct   *gnrl)
                 ft_error("Error\nargument must follow this format R,G,B!");
         gnrl->map.tab = ft_split(gnrl->map.line, ',');
         if (*gnrl->map.tab && *(gnrl->map.tab + 1) && *(gnrl->map.tab + 2) && !(*(gnrl->map.tab + 3)) && gnrl->map.check_f == 0)
+        {
             check_flour_bis(gnrl);
+            ft_free(gnrl->map.tab);
+        }
         else
+        {
+            ft_free(gnrl->map.tab);
             error_flour(gnrl);
+        }
     }
     else
         ft_error("Error\n! element 'F' is not followed by space.");

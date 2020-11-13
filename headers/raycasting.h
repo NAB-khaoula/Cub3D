@@ -6,7 +6,7 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 12:18:29 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/11 14:10:33 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/12 14:45:14 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,18 @@ typedef struct  s_sprite
 	void    *spr_img;
 	int     *spriteorder;
 	double  *spritedistance;
-	double	spriteX;
-	double	spriteY;
-	double	invDet;
-	double	transformX;
-	double	transformY;
-	int		spriteScreenX;
-	int		spriteHeight;
-	int		drawStartY;
-	int		drawEndY;
-	int		spriteWidth;
-	int 	drawStartX;
-	int		drawEndX;
+	double	spritex;
+	double	spritey;
+	double	invdet;
+	double	transform_x;
+	double	transform_y;
+	int		spritescreenx;
+	int		spriteheight;
+	int		drawstarty;
+	int		drawendy;
+	int		spritewidth;
+	int 	drawstartx;
+	int		drawendx;
 	int		stripe;
 } t_sprite;
 
@@ -101,9 +101,9 @@ typedef struct  s_struct
 	int			texheight;
 	void		*ptr;
 	void		*win;
-	double		cameraX;
-	double		raydirX;
-	double		raydirY;
+	double		camerax;
+	double		raydirx;
+	double		raydiry;
 	int			x;
 	int			map_x;
 	int			map_y;
@@ -115,13 +115,13 @@ typedef struct  s_struct
 	int			step_y;
 	int 		hit;
 	int 		side;
-	double		perpWallDist;
+	double		perpwalldist;
 	int			line_height;
-	int			drawStart;
-	int			drawEnd;
+	int			drawstart;
+	int			drawend;
 	int			color;
-	double		oldDirX;
-	double		oldPlaneX;
+	double		olddirx;
+	double		oldplanex;
 	void		*img;
 	int			*data;
 	int			*data_1;
@@ -131,14 +131,14 @@ typedef struct  s_struct
 	int			bits_per_pixel;
 	int			size_line;
 	int			endian;
-	int			texNum;
-	double		wallX;
-	int			texX;
+	int			texnum;
+	double		wallx;
+	int			texx;
 	int			th;
 	int			tw;
 	int			*texture;
 	double		step;
-	double		texPos;
+	double		texpos;
 	int			key;
 	int			key_up;
 	int			key_down;
@@ -146,7 +146,10 @@ typedef struct  s_struct
 	int			key_r_rot;
 	int			key_left;
 	int			key_right;
+	long int	flour;
+	long int	ceil;
 	t_map		map;
+	t_sprite	sprite;
 }               t_struct;
 
 
@@ -161,17 +164,16 @@ void	move_forward(t_struct *gnrl);
 void	move_backward(t_struct *gnrl);
 void	move_right(t_struct *gnrl);
 void	move_left(t_struct *gnrl);
-void  handle_keys(t_struct *gnrl);
+void 	handle_keys(t_struct *gnrl);
 void	init_var(t_struct *gnrl);
 void	init_dist(t_struct *gnrl);
 void	hit_the_wall(t_struct *gnrl);
 void	projected_distance(t_struct	*gnrl);
 void	wall_distance(t_struct *gnrl);
-void	init_image(t_struct *gnrl, t_sprite	*sprite);
 void    draw_sky_flour(t_struct *gnrl);
 void    init_texture(t_struct *gnrl);
 void    texture(t_struct *gnrl);
-void 	sort_sprite(t_sprite  *sprite, int num_sprites);
+void 	sort_sprite(t_struct *gnrl, int num_sprites);
 void	check_resolution(t_struct	*gnrl);
 void	check_digit_r(t_struct	*gnrl, char	*tab);
 void    ft_error(char *s);
@@ -200,10 +202,12 @@ void    check_ceil_bis(t_struct *gnrl);
 void	read_map(t_struct *gnrl, int fd);
 void    parsing(t_struct   *gnrl, char *argv);
 void    check_flour_bis(t_struct   *gnrl);
-void  	sort_sprite(t_sprite  *sprite, int num_sprites);
-void  	coord_sprite(t_sprite *sprite, t_struct *gnrl);
-void    low_high_pixel(t_sprite *sprite, t_struct *gnrl);
-void    width_sprite(t_sprite *sprite, t_struct *gnrl);
-void    draw_vert_stripes(t_sprite  *sprite, t_struct *gnrl);
-void    sprite_1(t_sprite *sprite, t_struct *gnrl);
+void  	sort_sprite(t_struct *gnrl, int num_sprites);
+void  	coord_sprite(t_struct *gnrl);
+void    low_high_pixel(t_struct *gnrl);
+void    width_sprite(t_struct *gnrl);
+void    draw_vert_stripes(t_struct *gnrl);
+void    draw_sprite(t_struct *gnrl);
 void	ft_init_map(t_struct *gnrl);
+void	flour_ceil_var(t_struct *gnrl);
+void    ft_free(char **str);
