@@ -6,7 +6,7 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 14:39:51 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/13 09:13:41 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/13 13:19:33 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	error_ceil(t_struct *gnrl)
         write(2, "Error\n color R,G,B range is [0,255]", 36);
     else if (gnrl->map.check_c == 1)
 	    write(2, "Error\n duplicated line, focus mate!", 36);
+    ft_free(gnrl->map.tab);
     exit(0);
 }
 
@@ -39,6 +40,7 @@ void    check_ceil_bis(t_struct *gnrl)
     if (gnrl->map.ceil_r > 255 || gnrl->map.ceil_r < 0 || gnrl->map.ceil_g > 255 || gnrl->map.ceil_g < 0 || gnrl->map.ceil_b > 255 || gnrl->map.ceil_b < 0)
 		error_ceil(gnrl);
     gnrl->map.check_c = 1;
+    ft_free(gnrl->map.tab);
 }
 
 void    check_ceil(t_struct   *gnrl)
@@ -57,7 +59,10 @@ void    check_ceil(t_struct   *gnrl)
         if (*gnrl->map.tab && *(gnrl->map.tab + 1) && *(gnrl->map.tab + 2) && !(*(gnrl->map.tab + 3)) && gnrl->map.check_c == 0)
             check_ceil_bis(gnrl);
         else
+        {
+            ft_free(gnrl->map.tab);
             error_ceil(gnrl);
+        }
     }
     else
         error_ceil(gnrl);

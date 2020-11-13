@@ -6,7 +6,7 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 14:36:21 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/13 09:19:19 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/13 13:19:59 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,12 @@ void    check_flour_bis(t_struct   *gnrl)
     gnrl->map.flour_b = ft_atoi(*(gnrl->map.tab + 2));
     if (gnrl->map.flour_r > 255 || gnrl->map.flour_r < 0 || gnrl->map.flour_g > 255
     || gnrl->map.flour_g < 0 || gnrl->map.flour_b > 255 || gnrl->map.flour_b < 0)
+    {
+        ft_free(gnrl->map.tab);
 	    ft_error("Error\n color R,G,B range is [0,255]");
+    }
     gnrl->map.check_f = 1;
+    ft_free(gnrl->map.tab);
 }
 
 void    check_flour(t_struct   *gnrl)
@@ -69,10 +73,7 @@ void    check_flour(t_struct   *gnrl)
                 ft_error("Error\nargument must follow this format R,G,B!");
         gnrl->map.tab = ft_split(gnrl->map.line, ',');
         if (*gnrl->map.tab && *(gnrl->map.tab + 1) && *(gnrl->map.tab + 2) && !(*(gnrl->map.tab + 3)) && gnrl->map.check_f == 0)
-        {
             check_flour_bis(gnrl);
-            ft_free(gnrl->map.tab);
-        }
         else
         {
             ft_free(gnrl->map.tab);
