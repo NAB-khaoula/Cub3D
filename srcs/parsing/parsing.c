@@ -6,7 +6,7 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 09:00:13 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/13 14:49:08 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/14 09:44:38 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,4 @@ void    parsing(t_struct   *gnrl, char *argv)
     if (gnrl->map.check_m == 0)
         ft_error("Error\nMap needed!");
     close(fd);
-}
-
-
-
-int main (void)
-{
-    t_struct gnrl;
-    
-    parsing(&gnrl, "../../map.cub");
 }

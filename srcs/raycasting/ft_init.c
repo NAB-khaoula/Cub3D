@@ -6,7 +6,7 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 10:42:24 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/12 14:31:23 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/14 10:14:23 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_init_map(t_struct *gnrl)
 	while (++i < gnrl->map.count)
 	{
 		j = -1;
-		while (++j < ft_strlen(*(gnrl->map.map + i)))
+		while (++j < (int)ft_strlen(*(gnrl->map.map + i)))
 		{
 			if (*(*(gnrl->map.map + i) + j) == '0' || *(*(gnrl->map.map + i) + j) == 'N'
 			|| *(*(gnrl->map.map + i) + j) == 'S' || *(*(gnrl->map.map + i) + j) == 'W'

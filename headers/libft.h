@@ -6,7 +6,7 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 11:25:56 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/07 12:26:25 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/13 14:08:34 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,5 @@ char    **ft_split(char const *s, char c);
 char    *ft_strchr(const char *str, int c);
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
+char	*ft_strdup(const char *src);
 #endif

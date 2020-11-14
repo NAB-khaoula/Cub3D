@@ -6,7 +6,7 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:53:25 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/12 14:36:04 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/13 14:11:53 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void  coord_sprite(t_struct *gnrl)
   while (++i < gnrl->map.count)
   {
     j = -1;
-    while (++j < ft_strlen(*(gnrl->map.map + i)))
+    while (++j < (int)ft_strlen(*(gnrl->map.map + i)))
     {
       if (gnrl->worldmap[i][j] == 2)
       {

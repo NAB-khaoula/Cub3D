@@ -6,7 +6,7 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 10:41:33 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/13 09:19:55 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/14 11:03:56 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,7 @@ int main(int argc, char **argv)
     mlx_hook(gnrl.win,17, 0, exit_key, &gnrl);
 	mlx_loop_hook(gnrl.ptr, draw_world, &gnrl);
 	mlx_loop(gnrl.ptr);
+	ft_free(gnrl.map.map);
   }
   return (0);
 }

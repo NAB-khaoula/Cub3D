@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/24 15:27:11 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/13 11:43:44 by knabouss         ###   ########.fr       */
+/*   Created: 2019/10/21 13:16:27 by knabouss          #+#    #+#             */
+/*   Updated: 2020/11/13 14:10:14 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/libft.h"
-#include "../../headers/raycasting.h"
-#include "../../headers/get_next_line.h"
 
-char	*ft_strtrim(char const *s, char const *set)
+char	*ft_strdup(const char *src)
 {
-	size_t		len;
-	char		*str;
+	char	*dest;
+	size_t	i;
+	size_t	index;
 
-	if (s == NULL)
+	i = ft_strlen(src);
+	dest = (char *)malloc((i + 1) * sizeof(char));
+	index = 0;
+	if (dest == NULL)
 		return (NULL);
-	while (*s && ft_strchr(set, *s))
-		s++;
-	len = ft_strlen(s);
-	while (len && ft_strchr(set, s[len]))
-		len--;
-	str = ft_substr(s, 0, len + 1);
-	if (str == NULL)
-		return (NULL);
-	return (str);
+	while (index < i)
+	{
+		dest[index] = src[index];
+		index++;
+	}
+	dest[index] = '\0';
+	return (dest);
 }

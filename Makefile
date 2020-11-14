@@ -6,7 +6,7 @@
 #    By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/07 12:20:20 by knabouss          #+#    #+#              #
-#    Updated: 2020/11/12 14:39:53 by knabouss         ###   ########.fr        #
+#    Updated: 2020/11/13 14:10:53 by knabouss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRCS =	./srcs/raycasting/movement.c \
 		./srcs/raycasting/sprite.c	\
 		./srcs/raycasting/cub3d.c\
 		./srcs/libft_cub/ft_atoi.c	\
+		./srcs/libft_cub/ft_strdup.c	\
 		./srcs/libft_cub/ft_isdigit.c	\
 		./srcs/libft_cub/ft_split.c	\
 		./srcs/libft_cub/ft_strjoin.c	\
@@ -41,7 +42,7 @@ SRCS =	./srcs/raycasting/movement.c \
 
 OBJ =  $(SRCS:.c=.o)
 
-# CFLAGS = -Wall -Wextra -Werror 
+CFLAGS = -Wall -Wextra -Werror 
 
 all: $(NAME)
 

@@ -6,7 +6,7 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 14:49:49 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/13 14:40:38 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/14 10:04:14 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ void    check_space_v(t_struct   *gnrl)
             }
         }
     }
+    ft_free(gnrl->map.map_rvs);
 }
 
 void    reverse_map(t_struct *gnrl)
