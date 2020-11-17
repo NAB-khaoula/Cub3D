@@ -6,7 +6,7 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 14:53:25 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/13 14:11:53 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/17 10:20:19 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,12 @@ void    draw_vert_stripes(t_struct *gnrl)
           gnrl->texpos = ((d * gnrl->texheight) / gnrl->sprite.spriteheight) / 256;
           gnrl->color = gnrl->sprite.spr_texture[gnrl->sprite.spr_w * (int)gnrl->texpos + gnrl->texx];
           if(gnrl->color != 9961608)
+          {
             gnrl->texture[j * gnrl->map.resol_w + gnrl->sprite.stripe] = gnrl->color;
+            gnrl->image[(j * gnrl->map.resol_w + gnrl->sprite.stripe) * 3 + 2] = gnrl->color >> 16;
+            gnrl->image[(j * gnrl->map.resol_w + gnrl->sprite.stripe) * 3 + 1] = gnrl->color >> 8;
+            gnrl->image[(j * gnrl->map.resol_w + gnrl->sprite.stripe) * 3 + 0] = gnrl->color;
+          }
         }
         }
       }

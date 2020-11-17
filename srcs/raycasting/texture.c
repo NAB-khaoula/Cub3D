@@ -6,7 +6,7 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 10:42:55 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/12 14:35:18 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/17 10:17:20 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void    texture(t_struct *gnrl)
 {
     while(gnrl->drawstart < gnrl->drawend)
       {
-        // Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
         int texY = (int)gnrl->texpos;
         gnrl->texpos += gnrl->step;
 		if (gnrl->side == 0)
@@ -53,6 +52,9 @@ void    texture(t_struct *gnrl)
 				gnrl->color = gnrl->data_3[gnrl->texheight * texY + gnrl->texx];
 		}
 		gnrl->texture[gnrl->map.resol_w * gnrl->drawstart + gnrl->x] = gnrl->color;
+		gnrl->image[(gnrl->map.resol_w * gnrl->drawstart + gnrl->x) * 3 + 2] = gnrl->color >> 16;
+		gnrl->image[(gnrl->map.resol_w * gnrl->drawstart + gnrl->x) * 3 + 1] = gnrl->color >> 8;
+		gnrl->image[(gnrl->map.resol_w * gnrl->drawstart + gnrl->x) * 3 + 0] = gnrl->color;
 		gnrl->drawstart++;
       }
 }

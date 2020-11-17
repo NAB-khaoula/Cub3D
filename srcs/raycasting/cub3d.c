@@ -6,7 +6,7 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 10:41:33 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/14 11:03:56 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/17 10:29:42 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,71 @@ void	flour_ceil_var(t_struct *gnrl)
 	gnrl->ceil = (gnrl->map.ceil_r << 16) + (gnrl->map.ceil_g << 8) + (gnrl->map.ceil_b);
 }
 
+void	bmp_filling_flour(int x, t_struct *gnrl)
+{
+	gnrl->abv = x * gnrl->map.resol_w + gnrl->x;
+		gnrl->image[(gnrl->abv) * 3 + 2] = (char)gnrl->map.flour_r;
+		gnrl->image[(gnrl->abv) * 3 + 1] = (char)gnrl->map.flour_g;
+		gnrl->image[(gnrl->abv) * 3 + 0] = (char)gnrl->map.flour_b;
+}
+
+void	bmp_filling_ceil(int x, t_struct *gnrl)
+{
+	gnrl->abv = (int)(x * gnrl->map.resol_w + gnrl->x);
+	gnrl->image[(gnrl->abv) * 3 + 2] = (char)gnrl->map.ceil_r;
+	gnrl->image[(gnrl->abv) * 3 + 1] = (char)gnrl->map.ceil_g;
+	gnrl->image[(gnrl->abv) * 3 + 0] = (char)gnrl->map.ceil_b;
+}
+
+void	bmp(t_struct *gnrl)
+{
+	int fd;
+	int filesize = 54 + 3*gnrl->map.resol_w * gnrl->map.resol_h;
+	
+	unsigned char *bmpfileheader;
+	unsigned char *bmpinfoheader;
+	//[40] = {40,0,0,0, 0,0,0,0, 0,0,0,0, 1,0, 24,0};
+	unsigned char *bmppad;
+	//[3] = {0,0,0};
+
+	bmpfileheader = (unsigned char *)malloc(14);
+	bmpinfoheader = (unsigned char *)malloc(40);
+	bmppad = (unsigned char *)malloc(3);
+	ft_memset(bmpfileheader, 0, 14);
+	ft_memset(bmpinfoheader, 0, 40);
+	ft_memset(bmppad, 0, 3);
+	bmpfileheader[0] = 'B';
+	bmpfileheader[1] = 'M';
+	bmpfileheader[2] = (unsigned char)(filesize);
+	bmpfileheader[3] = (unsigned char)(filesize>> 8);
+	bmpfileheader[4] = (unsigned char)(filesize>>16);
+	bmpfileheader[5] = (unsigned char)(filesize>>24);
+	bmpfileheader[10] = 54;
+
+	bmpinfoheader[0] = 40;
+	bmpinfoheader[4] = (unsigned char)(gnrl->map.resol_w);
+	bmpinfoheader[5] = (unsigned char)(gnrl->map.resol_w >> 8);
+	bmpinfoheader[6] = (unsigned char)(gnrl->map.resol_w >> 16);
+	bmpinfoheader[7] = (unsigned char)(gnrl->map.resol_w >> 24);
+	bmpinfoheader[8] = (unsigned char)(gnrl->map.resol_h);
+	bmpinfoheader[9] = (unsigned char)(gnrl->map.resol_h >> 8);
+	bmpinfoheader[10] = (unsigned char)(gnrl->map.resol_h >> 16);
+	bmpinfoheader[11] = (unsigned char)(gnrl->map.resol_h >> 24);
+	bmpinfoheader[12] = 1;
+	bmpinfoheader[14] = 24;
+
+	fd = open("img.bmp", O_WRONLY | O_CREAT, 0777);
+	write(fd, bmpfileheader,14);
+	write(fd, bmpinfoheader,40);
+	for(int i=0; i<gnrl->map.resol_h; i++)
+	{
+		write(fd, gnrl->image+(gnrl->map.resol_w*(gnrl->map.resol_h-i-1)*3),gnrl->map.resol_w * 3);
+		write(fd, bmppad,(4-(gnrl->map.resol_w*3)%4)%4);
+	}
+	gnrl->save = 2;
+	close(fd);
+}
+
 int	draw_world(t_struct *gnrl)
 {
 	gnrl->x = 0;
@@ -88,6 +153,8 @@ int	draw_world(t_struct *gnrl)
     	gnrl->sprite.z_buffer[gnrl->x] = gnrl->perpwalldist;
 	}
   	draw_sprite(gnrl);
+	if(gnrl->save == 1)
+		bmp(gnrl);
 	mlx_put_image_to_window(gnrl->ptr, gnrl->win, gnrl->img, 0, 0);
 	return (0);
 }
@@ -135,7 +202,7 @@ int key_release(int key, t_struct *gnrl)
 
 int main(int argc, char **argv)
 {
-  if(argc > 2)
+  if(argc > 3)
     ft_putstr_fd("Oups, too many arguments",2);
   else
   {
@@ -144,7 +211,7 @@ int main(int argc, char **argv)
 	  t_struct	gnrl;
     
     i = -1;
-    while(argc == 2 && ++i < 4)
+    while(argc >= 2 && ++i < 4)
     {
       if (*(*(argv + 1) + ft_strlen(*(argv + 1)) - i)
         != *(str + ft_strlen(str) - i) )
@@ -155,6 +222,8 @@ int main(int argc, char **argv)
     parsing(&gnrl, *(argv + 1));
     ft_init_map(&gnrl);
 	ft_init(&gnrl);
+	if(argc == 3 && !ft_strncmp(*(argv + 2), "--save", ft_strlen(*(argv + 2))))
+		gnrl.save = 1;
 	mlx_hook(gnrl.win,2, 0, press_key, &gnrl);
     mlx_hook(gnrl.win,3, 0, key_release, &gnrl);
     mlx_hook(gnrl.win,17, 0, exit_key, &gnrl);

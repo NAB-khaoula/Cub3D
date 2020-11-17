@@ -6,7 +6,7 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 10:41:22 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/12 14:30:11 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/17 10:15:23 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,15 @@ void    draw_sky_flour(t_struct *gnrl)
 	while(x < gnrl->map.resol_h)
 	{
 		if (x < gnrl->drawstart)
+		{
 			gnrl->data_sky[x * gnrl->map.resol_w + gnrl->x] = gnrl->ceil;
+			bmp_filling_ceil(x, gnrl);
+		}
 		else if (x >= gnrl->drawend)
+		{
 			gnrl->data_sky[x * gnrl->map.resol_w + gnrl->x] = gnrl->flour;
-		x++;
+			bmp_filling_flour(x, gnrl);
+		}
+	x++;
 	}
 }

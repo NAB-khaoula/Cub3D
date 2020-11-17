@@ -6,7 +6,7 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 12:18:29 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/13 09:46:04 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/17 10:11:24 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,9 @@ typedef struct  s_struct
 	int			key_right;
 	long int	flour;
 	long int	ceil;
+	int			save;
+	char	*image;
+	int			abv;
 	t_map		map;
 	t_sprite	sprite;
 }               t_struct;
@@ -211,3 +214,6 @@ void    draw_sprite(t_struct *gnrl);
 void	ft_init_map(t_struct *gnrl);
 void	flour_ceil_var(t_struct *gnrl);
 void    ft_free(char **str);
+void	bmp(t_struct *gnrl);
+void	bmp_filling_ceil(int x, t_struct *gnrl);
+void	bmp_filling_flour(int x, t_struct *gnrl);

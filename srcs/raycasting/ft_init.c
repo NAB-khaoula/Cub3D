@@ -6,7 +6,7 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 10:42:24 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/14 10:14:23 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/17 10:11:31 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,9 @@ void	ft_init(t_struct *gnrl)
 	gnrl->sprite.spr_texture = (int *)mlx_get_data_addr(gnrl->sprite.spr_img, &gnrl->sprite.spr_bbp, &gnrl->sprite.spr_s_l, &gnrl->sprite.spr_end);
 	gnrl->texwidth = gnrl->tw;
 	gnrl->texheight = gnrl->th;
+	gnrl->save = 0;
 	flour_ceil_var(gnrl);
+	gnrl->image = (char *)malloc(gnrl->map.resol_h * gnrl->map.resol_w * 3);
 }
 
 void    init_var(t_struct *gnrl)

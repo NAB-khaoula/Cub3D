@@ -6,11 +6,13 @@
 #    By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/07 12:20:20 by knabouss          #+#    #+#              #
-#    Updated: 2020/11/13 14:10:53 by knabouss         ###   ########.fr        #
+#    Updated: 2020/11/16 11:11:09 by knabouss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
+
+CFLAGS = -Wall -Wextra -Werror 
 
 SRCS =	./srcs/raycasting/movement.c \
 		./srcs/raycasting/calculate_ray.c	\
@@ -23,17 +25,18 @@ SRCS =	./srcs/raycasting/movement.c \
 		./srcs/libft_cub/ft_isdigit.c	\
 		./srcs/libft_cub/ft_split.c	\
 		./srcs/libft_cub/ft_strjoin.c	\
+		./srcs/libft_cub/ft_memset.c	\
 		./srcs/libft_cub/ft_strlen.c	\
 		./srcs/libft_cub/ft_strncmp.c	\
 		./srcs/libft_cub/ft_strtrim.c	\
 		./srcs/libft_cub/ft_substr.c	\
+		./srcs/parsing/check_path.c	\
 		./srcs/libft_cub/ft_putchar_fd.c\
 		./srcs/libft_cub/ft_putstr_fd.c	\
 		./srcs/libft_cub/ft_strchr.c	\
 		./srcs/parsing/check_ceil.c	\
 		./srcs/parsing/check_flour.c \
 		./srcs/parsing/check_map.c	\
-		./srcs/parsing/check_path.c	\
 		./srcs/parsing/check_resol.c	\
 		./srcs/parsing/get_next_line_utils.c	\
 		./srcs/parsing/get_next_line.c	\
@@ -42,7 +45,6 @@ SRCS =	./srcs/raycasting/movement.c \
 
 OBJ =  $(SRCS:.c=.o)
 
-CFLAGS = -Wall -Wextra -Werror 
 
 all: $(NAME)
 
