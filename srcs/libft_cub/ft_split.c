@@ -6,7 +6,7 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 12:20:25 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/07 14:17:13 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/17 11:25:18 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 
 static int	ft_nbr_words(char *str, char c)
 {
-	int nbr;
-	int i;
-    
+	int		nbr;
+	int		i;
+
 	nbr = 0;
 	i = 0;
 	while (str[i] != '\0')
@@ -40,7 +40,8 @@ static int	ft_nbr_words(char *str, char c)
 
 static int	ft_next_word_size(char *str, int k, char c)
 {
-	int word_size;
+	int		word_size;
+
 	word_size = 0;
 	while (str[k] != c && str[k] != '\0')
 	{
@@ -50,11 +51,12 @@ static int	ft_next_word_size(char *str, int k, char c)
 	return (word_size);
 }
 
-char	*my_str(char *str, int *k, char c)
+char		*my_str(char *str, int *k, char c)
 {
 	int		j;
 	int		z;
 	char	*new_str;
+
 	j = 0;
 	z = *k;
 	new_str = (char*)malloc(sizeof(char) * (ft_next_word_size(str, z, c) + 1));
@@ -69,7 +71,8 @@ char	*my_str(char *str, int *k, char c)
 
 static char	**free_tab(char **tab, int n)
 {
-	int i;
+	int		i;
+
 	i = 0;
 	if (tab)
 	{
@@ -86,6 +89,7 @@ char		**ft_split(char const *s, char c)
 	int		k;
 	char	**new_str;
 	char	*str;
+
 	i = 0;
 	k = 0;
 	str = (char*)s;

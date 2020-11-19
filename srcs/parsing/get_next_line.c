@@ -6,7 +6,7 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 18:16:29 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/07 14:07:41 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/17 14:14:00 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,4 @@ int				get_next_line(int fd, char **line)
 	if (r == 0 && (ft_strlen2(stat)) == 0)
 		return (0);
 	return (ft_gnl(&stat, line));
-}	
+}

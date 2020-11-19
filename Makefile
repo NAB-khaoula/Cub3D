@@ -6,7 +6,7 @@
 #    By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/07 12:20:20 by knabouss          #+#    #+#              #
-#    Updated: 2020/11/16 11:11:09 by knabouss         ###   ########.fr        #
+#    Updated: 2020/11/18 12:18:10 by knabouss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,11 +15,14 @@ NAME = cub3d
 CFLAGS = -Wall -Wextra -Werror 
 
 SRCS =	./srcs/raycasting/movement.c \
+		./srcs/raycasting/func_bis.c \
 		./srcs/raycasting/calculate_ray.c	\
 		./srcs/raycasting/ft_init.c	\
 		./srcs/raycasting/texture.c	\
 		./srcs/raycasting/sprite.c	\
-		./srcs/raycasting/cub3d.c\
+		./srcs/raycasting/cub3d.c	\
+		./srcs/raycasting/keys.c	\
+		./srcs/raycasting/bmp.c		\
 		./srcs/libft_cub/ft_atoi.c	\
 		./srcs/libft_cub/ft_strdup.c	\
 		./srcs/libft_cub/ft_isdigit.c	\
@@ -41,7 +44,8 @@ SRCS =	./srcs/raycasting/movement.c \
 		./srcs/parsing/get_next_line_utils.c	\
 		./srcs/parsing/get_next_line.c	\
 		./srcs/parsing/parsing.c	\
-		./srcs/parsing/valid_map.c	
+		./srcs/parsing/valid_map.c	\
+		./srcs/parsing/free.c
 
 OBJ =  $(SRCS:.c=.o)
 

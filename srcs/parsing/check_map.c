@@ -6,7 +6,7 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 14:46:25 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/13 14:38:07 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/18 14:07:43 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	check_borders_v(t_struct *gnrl)
 
 	i = -1;
 	while (*(*gnrl->map.map_rvs + ++i))
-		if (*(*gnrl->map.map_rvs + i) != ' ' && *(*gnrl->map.map_rvs + i) != '1')
+		if (*(*gnrl->map.map_rvs + i) != ' '
+		&& *(*gnrl->map.map_rvs + i) != '1')
 			ft_error("Error\nInvalid map!");
 	i = -1;
 	while (*(*(gnrl->map.map_rvs + gnrl->map.max_len - 1) + ++i))
@@ -45,23 +46,15 @@ void	check_borders(t_struct *gnrl)
 	i = -1;
 	while (*(*gnrl->map.map + ++i))
 		if (*(*gnrl->map.map + i) != ' ' && *(*gnrl->map.map + i) != '1')
-		{
-			ft_free(gnrl->map.map);
-			ft_error("Error\nInvalid map!");
-		}
+			free_error(gnrl->map.map, "Error\nInvalid map!");
 	i = -1;
-	if (ft_strncmp(ft_strtrim(*(gnrl->map.map + gnrl->map.count - 1), " "), "", 1) == 0)
-		{
-			ft_free(gnrl->map.map);
-			ft_error("Error\nInvalid map!");
-		}
+	if (ft_strncmp(ft_strtrim(*(gnrl->map.map + gnrl->map.count - 1),
+	" "), "", 1) == 0)
+		free_error(gnrl->map.map, "Error\nInvalid map!");
 	while (*(*(gnrl->map.map + gnrl->map.count - 1) + ++i))
 		if (*(*(gnrl->map.map + gnrl->map.count - 1) + i) != '1'
 		&& *(*(gnrl->map.map + gnrl->map.count - 1) + i) != ' ')
-		{
-			ft_free(gnrl->map.map);
-			ft_error("Error\nInvalid map!");
-		}
+			free_error(gnrl->map.map, "Error\nInvalid map!");
 }
 
 void	valid_map(t_struct *gnrl)
@@ -80,22 +73,18 @@ void	read_map(t_struct *gnrl, int fd)
 
 	while ((r = get_next_line(fd, &gnrl->map.line)) == 1)
 	{
-		if (ft_strncmp(gnrl->map.line, "", ft_strlen(gnrl->map.line)) != 0 && cmp == 0)
-		{
-			free(gnrl->map.fst_line);
-			ft_error("Error\nInvalid map");
-		}
+		if (ft_strncmp(gnrl->map.line, "",
+		ft_strlen(gnrl->map.line)) != 0 && cmp == 0)
+			free_line(gnrl->map.fst_line, "Error\nInvalid map");
 		gnrl->map.fst_line = ft_strjoin(gnrl->map.fst_line, "\v");
 		gnrl->map.fst_line = ft_strjoin(gnrl->map.fst_line, gnrl->map.line);
 		cmp = ft_strncmp(gnrl->map.line, "", ft_strlen(gnrl->map.line));
 	}
 	if (r == 0 && gnrl->map.line != '\0')
 	{
-		if (ft_strncmp(gnrl->map.line, "", ft_strlen(gnrl->map.line)) != 0 && cmp == 0)
-		{
-			free(gnrl->map.fst_line);
-			ft_error("Error\nInvalid map");
-		}
+		if (ft_strncmp(gnrl->map.line, "",
+		ft_strlen(gnrl->map.line)) != 0 && cmp == 0)
+			free_line(gnrl->map.fst_line, "Error\nInvalid map");
 		gnrl->map.fst_line = ft_strjoin(gnrl->map.fst_line, "\v");
 		gnrl->map.fst_line = ft_strjoin(gnrl->map.fst_line, gnrl->map.line);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: knabouss <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 18:14:29 by knabouss          #+#    #+#             */
-/*   Updated: 2019/12/22 15:09:02 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/18 13:13:58 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <sys/uio.h>
 # include <fcntl.h>
 # define FD 10240
-#define BUFFER_SIZE 24
+# define BUFFER_SIZE 24
 
 size_t	ft_strlen2(const char *str);
 char	*ft_strjoin2(char const *s1, char const *s2);

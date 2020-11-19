@@ -6,7 +6,7 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 14:49:01 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/07 14:16:57 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/17 13:47:18 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../../headers/raycasting.h"
 #include "../../headers/get_next_line.h"
 
-int		ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
 	int				i;
 	int				sgn;

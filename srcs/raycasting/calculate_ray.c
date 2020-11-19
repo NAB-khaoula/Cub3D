@@ -6,14 +6,13 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 10:41:22 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/17 10:15:23 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/18 10:55:18 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../../headers/raycasting.h"
 
-void	 hit_the_wall(t_struct *gnrl)
+void	hit_the_wall(t_struct *gnrl)
 {
 	while (gnrl->hit == 0)
 	{
@@ -34,32 +33,33 @@ void	 hit_the_wall(t_struct *gnrl)
 	}
 }
 
-void	projected_distance(t_struct	*gnrl)
+void	projected_distance(t_struct *gnrl)
 {
-	//Calculate distance projected on camera direction (Euclidean distance will give fisheye effect!)
 	if (gnrl->side == 0)
-		gnrl->perpwalldist = (gnrl->map_x - gnrl->map.pos_x + (1 - gnrl->step_x) / 2) / gnrl->raydirx;
+		gnrl->perpwalldist = (gnrl->map_x - gnrl->map.pos_x
+		+ (1 - gnrl->step_x) / 2) / gnrl->raydirx;
 	else
-		gnrl->perpwalldist = (gnrl->map_y - gnrl->map.pos_y + (1 - gnrl->step_y) / 2) / gnrl->raydiry;
+		gnrl->perpwalldist = (gnrl->map_y - gnrl->map.pos_y
+		+ (1 - gnrl->step_y) / 2) / gnrl->raydiry;
 }
 
 void	wall_distance(t_struct *gnrl)
 {
-	//Calculate height of line to draw on screen
 	gnrl->line_height = (int)gnrl->map.resol_h / gnrl->perpwalldist;
-	//calculate lowest and highest pixel to fill in current stripe
 	gnrl->drawstart = -gnrl->line_height / 2 + gnrl->map.resol_h / 2;
-	if(gnrl->drawstart < 0)
+	if (gnrl->drawstart < 0)
 		gnrl->drawstart = 0;
 	gnrl->drawend = gnrl->line_height / 2 + gnrl->map.resol_h / 2;
-	if(gnrl->drawend >= gnrl->map.resol_h)
+	if (gnrl->drawend >= gnrl->map.resol_h)
 		gnrl->drawend = gnrl->map.resol_h - 1;
 }
 
-void    draw_sky_flour(t_struct *gnrl)
+void	draw_sky_flour(t_struct *gnrl)
 {
-	int x = 0;
-	while(x < gnrl->map.resol_h)
+	int x;
+
+	x = 0;
+	while (x < gnrl->map.resol_h)
 	{
 		if (x < gnrl->drawstart)
 		{
@@ -71,6 +71,20 @@ void    draw_sky_flour(t_struct *gnrl)
 			gnrl->data_sky[x * gnrl->map.resol_w + gnrl->x] = gnrl->flour;
 			bmp_filling_flour(x, gnrl);
 		}
-	x++;
+		x++;
 	}
+}
+
+void	rotate_left(t_struct *gnrl)
+{
+	gnrl->olddirx = gnrl->map.dir_x;
+	gnrl->map.dir_x = gnrl->map.dir_x * cos(-gnrl->rotspeed)
+	- gnrl->map.dir_y * sin(-gnrl->rotspeed);
+	gnrl->map.dir_y = gnrl->olddirx * sin(-gnrl->rotspeed)
+	+ gnrl->map.dir_y * cos(-gnrl->rotspeed);
+	gnrl->oldplanex = gnrl->map.plane_x;
+	gnrl->map.plane_x = gnrl->map.plane_x * cos(-gnrl->rotspeed)
+	- gnrl->map.plane_y * sin(-gnrl->rotspeed);
+	gnrl->map.plane_y = gnrl->oldplanex * sin(-gnrl->rotspeed)
+	+ gnrl->map.plane_y * cos(-gnrl->rotspeed);
 }

@@ -6,167 +6,116 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 14:49:49 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/14 10:04:14 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/18 14:56:31 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/libft.h"
 #include "../../headers/raycasting.h"
 
-void    position(t_struct  *gnrl, int  *i, int *j)
+void	position(t_struct *gnrl, int *i, int *j)
 {
-    gnrl->map.pos_x = (double)*i + 0.5;
-    gnrl->map.pos_y = (double)*j + 0.5;
-    if (*(*(gnrl->map.map + *i) + *j) == 'N')
-    {
-        gnrl->map.dir_x = -1;
-        gnrl->map.dir_y = 0;
-        gnrl->map.plane_x = 0;
-        gnrl->map.plane_y = 0.66;
-    }
-    else if (*(*(gnrl->map.map + *i) + *j) == 'S')
-    {
-        gnrl->map.dir_x = 1;
-        gnrl->map.dir_y = 0;
-        gnrl->map.plane_x = 0;
-        gnrl->map.plane_y = -0.66;
-    }
-    else if (*(*(gnrl->map.map + *i) + *j) == 'W')
-    {
-        gnrl->map.dir_x = 0;
-        gnrl->map.dir_y = -1;
-        gnrl->map.plane_x = -0.66;
-        gnrl->map.plane_y = 0;
-    }
-    else if (*(*(gnrl->map.map + *i) + *j) == 'E')
-    {
-        gnrl->map.dir_x = 0;
-        gnrl->map.dir_y = 1;
-        gnrl->map.plane_x = 0.66;
-        gnrl->map.plane_y = 0;
-    }
-}
-
-void    check_space(t_struct   *gnrl)
-{
-    int i;
-    int j;
-    
-    i = 0;
-    gnrl->map.num_sprites = 0;
-    while(++i < gnrl->map.count - 1)
-    {
-        j = 0;
-        while(*(*(gnrl->map.map + i) + j) == ' ')
-            j++;
-        if (*(*(gnrl->map.map + i) + j) != '1')
-        {
-			ft_free(gnrl->map.map);
-			ft_error("Error\nInvalid map!");
+	if (gnrl->map.check_pos == 0)
+	{
+		gnrl->map.pos_x = (double)*i + 0.6;
+		gnrl->map.pos_y = (double)*j + 0.6;
+		if (*(*(gnrl->map.map + *i) + *j) == 'N')
+		{
+			gnrl->map.dir_x = -1;
+			gnrl->map.dir_y = 0;
+			gnrl->map.plane_x = 0;
+			gnrl->map.plane_y = 0.66;
 		}
-        while (++j < (int)ft_strlen(*(gnrl->map.map + i)))
-        {
-            if (*(*(gnrl->map.map + i) + j) == '0' || *(*(gnrl->map.map + i) + j) == '1')
-                continue;
-            else if (*(*(gnrl->map.map + i) + j) == ' ')
-            {
-                if (*(*(gnrl->map.map + i) + (j - 1)) != '1' && !(*(*(gnrl->map.map + i) + j)))
-                {
-			        ft_free(gnrl->map.map);
-			        ft_error("Error\nInvalid map!");
-		        }
-                else
-                {
-                    while(j < (int)ft_strlen(*(gnrl->map.map + i) + j) && *(*(gnrl->map.map + i) + j) == ' ')
-                        j++;
-                    if (*(*(gnrl->map.map + i) + j) != ' ' && *(*(gnrl->map.map + i) + j) != '1' && !(*(*(gnrl->map.map + i) + j)))
-                    {
-			            ft_free(gnrl->map.map);
-			            ft_error("Error\nInvalid map!");
-		            }
-                }
-            }
-            else if (*(*(gnrl->map.map + i) + j) == '2')
-                gnrl->map.num_sprites++;
-            else if (*(*(gnrl->map.map + i) + j) == 'N' || *(*(gnrl->map.map + i) + j) == 'S'
-            || *(*(gnrl->map.map + i) + j) == 'W' || *(*(gnrl->map.map + i) + j) == 'E')
-                position(gnrl, &i, &j);
-            else
-            {
-			    ft_free(gnrl->map.map);
-			    ft_error("Error\nInvalid map!");
-		    }
-        }
-    }
-}
-
-void    check_space_v(t_struct   *gnrl)
-{
-    int i;
-    int j;
-    
-    i = 0;
-    while(++i < gnrl->map.max_len - 1)
-    {
-        j = 0;
-        while(*(*(gnrl->map.map_rvs + i) + j) == ' ')
-            j++;
-        if (*(*(gnrl->map.map_rvs + i) + j) != '1' && *(*(gnrl->map.map_rvs + i) + j))
-        {
-			ft_free(gnrl->map.map_rvs);
-			ft_error("Error\nInvalid map!");
+		else if (*(*(gnrl->map.map + *i) + *j) == 'S')
+		{
+			gnrl->map.dir_x = 1;
+			gnrl->map.dir_y = 0;
+			gnrl->map.plane_x = 0;
+			gnrl->map.plane_y = -0.66;
 		}
-        while (++j < gnrl->map.count  - 1)
-        {
-            if (*(*(gnrl->map.map_rvs + i) + j) == 0 || *(*(gnrl->map.map_rvs + i) + j) == 1)
-                continue;
-            else if (*(*(gnrl->map.map_rvs + i) + j) == ' ')
-            {
-                if (*(*(gnrl->map.map_rvs + i) + (j - 1)) != '1')
-                {
-			        ft_free(gnrl->map.map_rvs);
-			        ft_error("Error\nInvalid map!");
-		        }
-                else
-                {
-                    while(*(*(gnrl->map.map_rvs + i) + j) == ' ')
-                        j++;
-                    if (*(*(gnrl->map.map_rvs + i) + j) != '1' && *(*(gnrl->map.map_rvs + i) + j))
-                    {
-			            ft_free(gnrl->map.map_rvs);
-			            ft_error("Error\nInvalid map!");
-		            }
-                }
-            }
-        }
-    }
-    ft_free(gnrl->map.map_rvs);
+		else
+			continue_position(gnrl, i, j);
+		gnrl->map.check_pos = 1;
+	}
+	else
+		ft_error("Error\nDuplicated position");
 }
 
-void    reverse_map(t_struct *gnrl)
+void	check_space(t_struct *gnrl)
 {
-    int i; 
-    int j;
-    
-    i = -1;
-    gnrl->map.map_rvs = (char **)malloc(sizeof(char *) * (gnrl->map.max_len + 1));
-    while(++i < gnrl->map.max_len)
-    {
-        j = -1;
-        *(gnrl->map.map_rvs + i) = (char *)malloc(sizeof(char) * (gnrl->map.count + 1));
-         while(++j < gnrl->map.count)
-            *(*(gnrl->map.map_rvs + i) + j) = ' ';
-         *(*(gnrl->map.map_rvs + i) + j) = '\0';
-    }
-    *(gnrl->map.map_rvs + i)  = NULL;
-    i = -1;
-    while(++i < gnrl->map.max_len)
-    {
-        j = -1;
-        while(++j < gnrl->map.count)
-        {
-            if ((int)ft_strlen(*(gnrl->map.map + j)) > i)
-                *(*(gnrl->map.map_rvs + i) + j) = *(*(gnrl->map.map + j) + i);
-        }
-    }
+	int i;
+	int j;
+
+	i = 0;
+	gnrl->map.num_sprites = 0;
+	while (++i < gnrl->map.count - 1)
+	{
+		j = 0;
+		while (*(*(gnrl->map.map + i) + j) == ' ')
+			j++;
+		if (*(*(gnrl->map.map + i) + j) != '1')
+			free_error(gnrl->map.map, "Error\nInvalid map!");
+		while (++j < (int)ft_strlen(*(gnrl->map.map + i)))
+		{
+			if (*(*(gnrl->map.map + i) + j) == '0'
+			|| *(*(gnrl->map.map + i) + j) == '1')
+				continue;
+			else
+				continue_check_space(gnrl, &i, &j);
+		}
+	}
+}
+
+void	check_space_v(t_struct *gnrl)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (++i < gnrl->map.max_len - 1)
+	{
+		j = 0;
+		while (*(*(gnrl->map.map_rvs + i) + j) == ' ')
+			j++;
+		if (*(*(gnrl->map.map_rvs + i) + j) != '1'
+		&& *(*(gnrl->map.map_rvs + i) + j))
+			free_error(gnrl->map.map_rvs, "Error\nInvalid map!");
+		while (++j < gnrl->map.count)
+		{
+			if (*(*(gnrl->map.map_rvs + i) + j) == 0
+			|| *(*(gnrl->map.map_rvs + i) + j) == 1)
+				continue;
+			else if (*(*(gnrl->map.map_rvs + i) + j) == ' ')
+				continue_check_vspace(gnrl, &i, &j);
+		}
+	}
+	ft_free(gnrl->map.map_rvs);
+}
+
+void	reverse_map(t_struct *gnrl)
+{
+	int i;
+	int j;
+
+	i = -1;
+	gnrl->map.map_rvs = (char **)malloc(sizeof(char *) *
+	(gnrl->map.max_len + 1));
+	while (++i < gnrl->map.max_len)
+	{
+		j = -1;
+		*(gnrl->map.map_rvs + i) = (char *)malloc(sizeof(char) *
+		(gnrl->map.count + 1));
+		while (++j < gnrl->map.count)
+			*(*(gnrl->map.map_rvs + i) + j) = ' ';
+		*(*(gnrl->map.map_rvs + i) + j) = '\0';
+	}
+	*(gnrl->map.map_rvs + i) = NULL;
+	i = -1;
+	while (++i < gnrl->map.max_len)
+	{
+		j = -1;
+		while (++j < gnrl->map.count)
+			if ((int)ft_strlen(*(gnrl->map.map + j)) > i)
+				*(*(gnrl->map.map_rvs + i) + j) = *(*(gnrl->map.map + j) + i);
+	}
 }
