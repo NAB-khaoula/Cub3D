@@ -6,7 +6,7 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 14:49:49 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/18 14:56:31 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/20 12:34:45 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,7 @@ void	check_space(t_struct *gnrl)
 			j++;
 		if (*(*(gnrl->map.map + i) + j) != '1')
 			free_error(gnrl->map.map, "Error\nInvalid map!");
-		while (++j < (int)ft_strlen(*(gnrl->map.map + i)))
-		{
-			if (*(*(gnrl->map.map + i) + j) == '0'
-			|| *(*(gnrl->map.map + i) + j) == '1')
-				continue;
-			else
-				continue_check_space(gnrl, &i, &j);
-		}
+		continue_space(gnrl, &i, &j);
 	}
 }
 
@@ -75,19 +68,7 @@ void	check_space_v(t_struct *gnrl)
 	while (++i < gnrl->map.max_len - 1)
 	{
 		j = 0;
-		while (*(*(gnrl->map.map_rvs + i) + j) == ' ')
-			j++;
-		if (*(*(gnrl->map.map_rvs + i) + j) != '1'
-		&& *(*(gnrl->map.map_rvs + i) + j))
-			free_error(gnrl->map.map_rvs, "Error\nInvalid map!");
-		while (++j < gnrl->map.count)
-		{
-			if (*(*(gnrl->map.map_rvs + i) + j) == 0
-			|| *(*(gnrl->map.map_rvs + i) + j) == 1)
-				continue;
-			else if (*(*(gnrl->map.map_rvs + i) + j) == ' ')
-				continue_check_vspace(gnrl, &i, &j);
-		}
+		continue_vspace(gnrl, &i, &j);
 	}
 	ft_free(gnrl->map.map_rvs);
 }
@@ -118,4 +99,17 @@ void	reverse_map(t_struct *gnrl)
 			if ((int)ft_strlen(*(gnrl->map.map + j)) > i)
 				*(*(gnrl->map.map_rvs + i) + j) = *(*(gnrl->map.map + j) + i);
 	}
+}
+
+void	pos_sprt(t_struct *gnrl, int *i, int *j)
+{
+	if (*(*(gnrl->map.map + (*i)) + (*j)) == '2')
+		gnrl->map.num_sprites++;
+	else if (*(*(gnrl->map.map + (*i)) + (*j)) == 'N'
+	|| *(*(gnrl->map.map + (*i)) + (*j)) == 'S'
+	|| *(*(gnrl->map.map + (*i)) + (*j)) == 'W'
+	|| *(*(gnrl->map.map + (*i)) + (*j)) == 'E')
+		position(gnrl, i, j);
+	else
+		free_error(gnrl->map.map, "Error\nInvalid map!");
 }

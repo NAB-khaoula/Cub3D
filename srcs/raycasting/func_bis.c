@@ -6,7 +6,7 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 11:34:00 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/18 12:20:03 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/20 11:49:16 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,5 @@ void	fd_wrt(int fd, t_struct *gnrl, int i, unsigned char *bmppad)
 	write(fd, gnrl->image + (gnrl->map.resol_w *
 	(gnrl->map.resol_h - i - 1) * 3), gnrl->map.resol_w * 3);
 	write(fd, bmppad, (4 - (gnrl->map.resol_w * 3) % 4) % 4);
+	gnrl->save = 2;
 }

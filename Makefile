@@ -6,11 +6,11 @@
 #    By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/07 12:20:20 by knabouss          #+#    #+#              #
-#    Updated: 2020/11/18 12:18:10 by knabouss         ###   ########.fr        #
+#    Updated: 2020/11/19 13:38:17 by knabouss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = cub3d
+NAME = cub3D
 
 CFLAGS = -Wall -Wextra -Werror 
 

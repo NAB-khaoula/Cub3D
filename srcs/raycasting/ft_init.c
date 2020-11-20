@@ -6,7 +6,7 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 10:42:24 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/19 10:13:27 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/20 11:47:30 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	ft_init_map(t_struct *gnrl)
 
 void	ft_init(t_struct *gnrl)
 {
+	gnrl->filesize = 54 + 3 * gnrl->map.resol_w * gnrl->map.resol_h;
 	gnrl->movespeed = 0.1;
 	gnrl->rotspeed = 0.1;
 	gnrl->ptr = mlx_init();

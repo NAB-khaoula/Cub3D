@@ -6,7 +6,7 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 11:55:07 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/18 12:25:08 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/20 11:47:41 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void			bmp(t_struct *gnrl)
 	unsigned char	*bmppad;
 
 	i = -1;
-	gnrl->filesize = 54 + 3 * gnrl->map.resol_w * gnrl->map.resol_h;
 	bmpfileheader = (unsigned char *)malloc(14);
 	bmpinfoheader = (unsigned char *)malloc(40);
 	bmppad = (unsigned char *)malloc(3);
@@ -80,7 +79,9 @@ void			bmp(t_struct *gnrl)
 	write(fd, bmpinfoheader, 40);
 	while (++i < gnrl->map.resol_h)
 		fd_wrt(fd, gnrl, i, bmppad);
-	gnrl->save = 2;
+	free(bmpfileheader);
+	free(bmpinfoheader);
+	free(bmppad);
 	close(fd);
 	exit(0);
 }

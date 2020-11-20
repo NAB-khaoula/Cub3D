@@ -6,7 +6,7 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 12:18:29 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/19 10:08:48 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/20 12:10:26 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,8 +226,8 @@ void			free_line(char *str, char *err);
 void			parsing_check(t_struct	*gnrl, int fd);
 void			free_r_error(char **str, t_struct *gnrl);
 void			continue_position(t_struct *gnrl, int *i, int *j);
-void			continue_check_space(t_struct *gnrl, int *i, int *j);
-void			continue_check_vspace(t_struct *gnrl, int *i, int *j);
+void			continue_vspace(t_struct *gnrl, int *i, int *j);
+void			continue_space(t_struct *gnrl, int *i, int *j);
 void			fill_img_tex(t_struct *gnrl);
 void			fill_img_sprt(t_struct *gnrl, int j, int d);
 void			init_map_bis(t_struct *gnrl, int i, int j);
@@ -239,4 +239,5 @@ void			func_mlx(int argc, char **argv, t_struct *gnrl);
 unsigned char	*fill_fileheader(t_struct *gnrl, unsigned char	*bmpfileheader);
 unsigned char	*fill_infoheader(t_struct *gnrl, unsigned char	*bmpinfoheader);
 void			fd_wrt(int fd, t_struct *gnrl, int i, unsigned char *bmppad);
+void			pos_sprt(t_struct *gnrl, int *i, int *j);
 #endif

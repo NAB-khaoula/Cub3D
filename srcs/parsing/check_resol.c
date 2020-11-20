@@ -6,7 +6,7 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 14:29:41 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/18 14:52:39 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/19 14:03:53 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,18 +71,4 @@ void	check_resolution(t_struct *gnrl)
 	}
 	else
 		free_r_error(gnrl->map.tab, gnrl);
-}
-
-void	continue_check_vspace(t_struct *gnrl, int *i, int *j)
-{
-	if (*(*(gnrl->map.map_rvs + *i) + (*j - 1)) != '1')
-		free_error(gnrl->map.map_rvs, "Error\nInvalid map!");
-	else
-	{
-		while (*(*(gnrl->map.map_rvs + *i) + *j) == ' ')
-			(*j)++;
-		if (*(*(gnrl->map.map_rvs + *i) + *j) != '1'
-		&& *(*(gnrl->map.map_rvs + *i) + *j))
-			free_error(gnrl->map.map_rvs, "Error\nInvalid map!");
-	}
 }

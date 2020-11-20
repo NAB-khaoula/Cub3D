@@ -6,7 +6,7 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 14:39:51 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/18 14:20:35 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/20 12:38:16 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,30 +75,57 @@ void	check_ceil(t_struct *gnrl)
 		error_ceil(gnrl);
 }
 
-void	continue_check_space(t_struct *gnrl, int *i, int *j)
+void	continue_vspace(t_struct *gnrl, int *i, int *j)
 {
-	if (*(*(gnrl->map.map + *i) + *j) == ' ')
+	while (gnrl->map.map_rvs[(*i)][(*j)] == ' ')
+		(*j)++;
+	if (gnrl->map.map_rvs[(*i)][(*j)] != '1'
+	&& gnrl->map.map_rvs[(*i)][(*j)])
+		free_error(gnrl->map.map_rvs, "Error\nInvalid map!");
+	while (++(*j) < gnrl->map.count)
 	{
-		if (*(*(gnrl->map.map + *i) + (*j - 1)) != '1')
-			free_error(gnrl->map.map, "Error\nInvalid map!");
-		else
+		if (gnrl->map.map_rvs[(*i)][(*j)] == 0
+		|| gnrl->map.map_rvs[(*i)][(*j)] == 1)
+			continue;
+		else if (gnrl->map.map_rvs[(*i)][(*j)] == ' ')
 		{
-			while (*j < (int)ft_strlen(*(gnrl->map.map + *i) + *j)
-			&& *(*(gnrl->map.map + *i) + *j) == ' ')
-				j++;
-			if (*(*(gnrl->map.map + *i) + *j) != ' '
-			&& *(*(gnrl->map.map + *i) + *j) != '1'
-			&& !(*(*(gnrl->map.map + *i) + *j)))
-				free_error(gnrl->map.map, "Error\nInvalid map!");
+			if (gnrl->map.map_rvs[(*i)][(*j) - 1] != '1')
+				free_error(gnrl->map.map_rvs, "Error\nInvalid map!");
+			else
+			{
+				while (gnrl->map.map_rvs[(*i)][(*j)] == ' ')
+					(*j)++;
+				if (gnrl->map.map_rvs[(*i)][(*j)] != '1'
+				&& gnrl->map.map_rvs[(*i)][(*j)])
+					free_error(gnrl->map.map_rvs, "Error\nInvalid map!");
+			}
 		}
 	}
-	else if (*(*(gnrl->map.map + *i) + *j) == '2')
-		gnrl->map.num_sprites++;
-	else if (*(*(gnrl->map.map + *i) + *j) == 'N'
-	|| *(*(gnrl->map.map + *i) + *j) == 'S'
-	|| *(*(gnrl->map.map + *i) + *j) == 'W'
-	|| *(*(gnrl->map.map + *i) + *j) == 'E')
-		position(gnrl, i, j);
-	else
-		free_error(gnrl->map.map, "Error\nInvalid map!");
+}
+
+void	continue_space(t_struct *gnrl, int *i, int *j)
+{
+	while (++(*j) < (int)ft_strlen(*(gnrl->map.map + *i)))
+	{
+		if (*(*(gnrl->map.map + (*i)) + (*j)) == '0'
+		|| *(*(gnrl->map.map + (*i)) + (*j)) == '1')
+			continue;
+		else if (*(*(gnrl->map.map + (*i)) + (*j)) == ' ')
+		{
+			if (*(*(gnrl->map.map + (*i)) + ((*j) - 1)) != '1')
+				free_error(gnrl->map.map, "Error\nInvalid map!");
+			else
+			{
+				while ((*j) < (int)ft_strlen(*(gnrl->map.map + (*i)))
+				&& *(*(gnrl->map.map + (*i)) + (*j)) == ' ')
+					(*j)++;
+				if (*(*(gnrl->map.map + (*i)) + (*j)) != ' '
+				&& *(*(gnrl->map.map + (*i)) + (*j)) != '1'
+				&& (*(*(gnrl->map.map + (*i)) + (*j))))
+					free_error(gnrl->map.map, "Error\nInvalid map!");
+			}
+		}
+		else
+			pos_sprt(gnrl, i, j);
+	}
 }
