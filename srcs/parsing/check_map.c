@@ -6,7 +6,7 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 14:46:25 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/24 14:53:38 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/24 18:48:35 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,18 +87,18 @@ void	read_map(t_struct *gnrl, int fd)
 		gnrl->map.fst_line = ft_strjoin(gnrl->map.fst_line, gnrl->map.line);
 		free(tmp);
 		cmp = ft_strncmp(gnrl->map.line, "", ft_strlen(gnrl->map.line));
-		if (r == 1 || ft_strncmp(gnrl->map.line, "",ft_strlen(gnrl->map.line)) != 0)
+		if (r == 1 || ft_strncmp(gnrl->map.line, "",
+		ft_strlen(gnrl->map.line)) != 0)
 			free(gnrl->map.line);
 	}
 	gnrl->map.map = ft_split(gnrl->map.fst_line, '\v');
 	free(gnrl->map.fst_line);
-	//close(fd);
 }
 
 void	check_map(t_struct *gnrl, int fd)
 {
 	char	*tmp;
-	
+
 	gnrl->map.fst_line = ft_strdup(gnrl->map.line);
 	tmp = gnrl->map.line;
 	gnrl->map.line = ft_strtrim(gnrl->map.line, " ");

@@ -6,7 +6,7 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 10:41:33 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/24 14:31:44 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/24 18:48:15 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,5 @@ int		main(int argc, char **argv)
 				ft_error("Error\n .cub extension needed");
 		func_mlx(argc, argv, &gnrl);
 	}
-	
 	return (0);
 }
