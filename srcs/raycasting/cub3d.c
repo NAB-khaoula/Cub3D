@@ -6,7 +6,7 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 10:41:33 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/19 19:02:37 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/24 14:31:44 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ void	func_mlx(int argc, char **argv, t_struct *gnrl)
 	mlx_loop_hook(gnrl->ptr, draw_world, gnrl);
 	mlx_loop(gnrl->ptr);
 	ft_free(gnrl->map.map);
-	free(gnrl->image);
 }
 
 int		main(int argc, char **argv)
@@ -109,5 +108,6 @@ int		main(int argc, char **argv)
 				ft_error("Error\n .cub extension needed");
 		func_mlx(argc, argv, &gnrl);
 	}
+	
 	return (0);
 }

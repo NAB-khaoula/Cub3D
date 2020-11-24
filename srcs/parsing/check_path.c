@@ -6,7 +6,7 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 14:41:53 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/18 09:06:08 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/23 14:14:22 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,4 +94,5 @@ void	check_path(t_struct *gnrl)
 	else if (*gnrl->map.line == 'E')
 		check_east(gnrl);
 	free(gnrl->map.path);
+	free(gnrl->map.line);
 }

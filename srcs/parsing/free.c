@@ -6,7 +6,7 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 14:01:52 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/18 09:12:28 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/24 09:57:36 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,13 @@ void	ft_free(char **str)
 	i = 0;
 	while (str[i])
 		i++;
-	while (i--)
+	while (i >= 0)
+	{
 		free(str[i]);
+		i--;
+	}
 	free(str);
+	str = NULL;
 }
 
 void	free_error(char **str, char *err)

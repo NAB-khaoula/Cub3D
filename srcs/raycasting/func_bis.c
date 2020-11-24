@@ -6,7 +6,7 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 11:34:00 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/20 11:49:16 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/24 13:36:49 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	init_bis(t_struct *gnrl)
 	gnrl->save = 0;
 	flour_ceil_var(gnrl);
 	gnrl->image = (char *)malloc(gnrl->map.resol_h * gnrl->map.resol_w * 3);
+	free(gnrl->map.sprite);
 }
 
 void	draw_sprite_bis(t_struct *gnrl, int i)

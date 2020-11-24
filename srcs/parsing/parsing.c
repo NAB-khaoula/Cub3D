@@ -6,7 +6,7 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 09:00:13 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/19 19:02:32 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/24 14:44:22 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,11 @@ void	parsing_check(t_struct *gnrl, int fd)
 	else if (*gnrl->map.line == ' ' || *gnrl->map.line == '1')
 		check_map(gnrl, fd);
 	else if (*gnrl->map.line != '\0')
+	{
 		ft_error("Error\nImposter line!");
-	if (*gnrl->map.line != '\0')
+		free(gnrl->map.line);
+	}
+	else if (gnrl->map.line)
 		free(gnrl->map.line);
 }
 
@@ -58,7 +61,7 @@ void	parsing(t_struct *gnrl, char *argv)
 		ft_error("Error\nArgument not valid!");
 	while ((r = get_next_line(fd, &gnrl->map.line)) == 1)
 		parsing_check(gnrl, fd);
-	if (*gnrl->map.line != '\0')
+	if (r == 0)
 		free(gnrl->map.line);
 	if (gnrl->map.check_m == 0)
 		ft_error("Error\nMap needed!");

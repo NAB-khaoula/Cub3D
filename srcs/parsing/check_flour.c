@@ -6,7 +6,7 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 14:36:21 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/17 13:53:48 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/24 11:50:38 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,22 @@ void	check_digit_f(char *tab)
 
 void	error_flour(t_struct *gnrl)
 {
-	if (*(*gnrl->map.tab + ft_strlen(*gnrl->map.tab) - 1) == ','
-	|| !(*(gnrl->map.tab + 2)) || !(*(gnrl->map.tab + 1)))
-		ft_error("Error\n the argument must follow this format R,G,B!");
-	else if (gnrl->map.check_f == 1)
-		ft_error("Error\n duplicated line, focus mate!");
+	if (*(gnrl->map.line + 1) != ' ')
+		write(2, "Error\n element 'F' is incorrect.", 33);
+	else
+	{
+		if (*(*gnrl->map.tab + ft_strlen(*gnrl->map.tab) - 1) == ','
+		|| !(*(gnrl->map.tab + 2)) || !(*(gnrl->map.tab + 1)))
+			write(2, "Error\n the argument must follow this format R,G,B!", 68);
+		else if (gnrl->map.ceil_r > 255 || gnrl->map.ceil_r < 0
+		|| gnrl->map.ceil_g > 255 || gnrl->map.ceil_g < 0
+		|| gnrl->map.ceil_b > 255 || gnrl->map.ceil_b < 0)
+			write(2, "Error\n color R,G,B range is [0,255]", 36);
+		else if (gnrl->map.check_c == 1)
+			write(2, "Error\n duplicated line, focus mate!", 36);
+		ft_free(gnrl->map.tab);
+	}
+	exit(0);
 }
 
 void	check_flour_bis(t_struct *gnrl)
@@ -53,39 +64,19 @@ void	check_flour_bis(t_struct *gnrl)
 	if (gnrl->map.flour_r > 255 || gnrl->map.flour_r < 0
 	|| gnrl->map.flour_g > 255 || gnrl->map.flour_g < 0
 	|| gnrl->map.flour_b > 255 || gnrl->map.flour_b < 0)
-	{
-		ft_free(gnrl->map.tab);
-		ft_error("Error\n color R,G,B range is [0,255]");
-	}
+		error_flour(gnrl);
 	gnrl->map.check_f = 1;
 	ft_free(gnrl->map.tab);
 }
 
 void	check_flour(t_struct *gnrl)
 {
-	int i;
+	char	*tmp;
 
-	i = -1;
+	tmp = NULL;
 	if (*(gnrl->map.line + 1) == ' ')
-	{
-		gnrl->map.line = ft_strtrim(gnrl->map.line + 1, " ");
-		while (*(gnrl->map.line + ++i))
-			if ((*(gnrl->map.line + i) == ','
-			&& *(gnrl->map.line + i + 1) == ',')
-			|| (*(gnrl->map.line + i) == ','
-			&& *(gnrl->map.line + i + 1) == '\0')
-			|| *gnrl->map.line == ',')
-				ft_error("Error\nargument must follow this format R,G,B!");
-		gnrl->map.tab = ft_split(gnrl->map.line, ',');
-		if (*gnrl->map.tab && *(gnrl->map.tab + 1) && *(gnrl->map.tab + 2)
-		&& !(*(gnrl->map.tab + 3)) && gnrl->map.check_f == 0)
-			check_flour_bis(gnrl);
-		else
-		{
-			ft_free(gnrl->map.tab);
-			error_flour(gnrl);
-		}
-	}
+		check_flour_norm(gnrl, tmp);
 	else
 		ft_error("Error\n! element 'F' is not followed by space.");
+	free(gnrl->map.line);
 }

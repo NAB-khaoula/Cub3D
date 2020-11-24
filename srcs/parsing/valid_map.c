@@ -6,7 +6,7 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 14:49:49 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/20 12:34:45 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/24 14:11:15 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,12 @@ void	reverse_map(t_struct *gnrl)
 
 	i = -1;
 	gnrl->map.map_rvs = (char **)malloc(sizeof(char *) *
-	(gnrl->map.max_len + 1));
+	(gnrl->map.max_len));
 	while (++i < gnrl->map.max_len)
 	{
 		j = -1;
 		*(gnrl->map.map_rvs + i) = (char *)malloc(sizeof(char) *
-		(gnrl->map.count + 1));
+		(gnrl->map.count));
 		while (++j < gnrl->map.count)
 			*(*(gnrl->map.map_rvs + i) + j) = ' ';
 		*(*(gnrl->map.map_rvs + i) + j) = '\0';

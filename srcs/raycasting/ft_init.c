@@ -6,7 +6,7 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 10:42:24 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/20 11:47:30 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/24 13:35:28 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,10 @@ void	ft_init(t_struct *gnrl)
 	gnrl->map.west, &gnrl->tw, &gnrl->th);
 	gnrl->xpm_file_img_3 = mlx_xpm_file_to_image(gnrl->ptr,
 	gnrl->map.east, &gnrl->tw, &gnrl->th);
+	free(gnrl->map.north);
+	free(gnrl->map.south);
+	free(gnrl->map.west);
+	free(gnrl->map.east);
 	init_bis(gnrl);
 }
 

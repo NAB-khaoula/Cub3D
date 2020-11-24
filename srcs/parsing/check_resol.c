@@ -6,7 +6,7 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 14:29:41 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/19 14:03:53 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/24 14:46:30 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,8 @@ void	check_resolution(t_struct *gnrl)
 			check_digit_r(gnrl, *(gnrl->map.tab + 2));
 			gnrl->map.resol_w = ft_atoi(*(gnrl->map.tab + 1));
 			gnrl->map.resol_h = ft_atoi(*(gnrl->map.tab + 2));
-			if (gnrl->map.resol_h == 0 || gnrl->map.resol_w == 0)
-				ft_error("Error\nResolution must be a struct positive number!");
 			if (gnrl->map.resol_h >= 1620 || gnrl->map.resol_w >= 2880
-			|| gnrl->map.resol_h < 0 || gnrl->map.resol_w < 0)
+			|| gnrl->map.resol_h <= 0 || gnrl->map.resol_w <= 0)
 			{
 				gnrl->map.resol_h = 1620;
 				gnrl->map.resol_w = 2880;
@@ -71,4 +69,5 @@ void	check_resolution(t_struct *gnrl)
 	}
 	else
 		free_r_error(gnrl->map.tab, gnrl);
+	free(gnrl->map.line);
 }

@@ -6,7 +6,7 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 14:39:51 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/20 12:38:16 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/24 12:03:16 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,20 @@
 void	error_ceil(t_struct *gnrl)
 {
 	if (*(gnrl->map.line + 1) != ' ')
-		write(2, "Error\n element 'C' is not followed by space.", 45);
-	else if (*(*gnrl->map.tab + ft_strlen(*gnrl->map.tab) - 1) == ','
-	|| !(*(gnrl->map.tab + 2)) || !(*(gnrl->map.tab + 1)))
-		write(2, "Error\n the argument must follow this format R,G,B!", 68);
-	else if (gnrl->map.ceil_r > 255 || gnrl->map.ceil_r < 0
-	|| gnrl->map.ceil_g > 255 || gnrl->map.ceil_g < 0
-	|| gnrl->map.ceil_b > 255 || gnrl->map.ceil_b < 0)
-		write(2, "Error\n color R,G,B range is [0,255]", 36);
-	else if (gnrl->map.check_c == 1)
-		write(2, "Error\n duplicated line, focus mate!", 36);
-	ft_free(gnrl->map.tab);
+		write(2, "Error\n element 'C' is incorrect.", 33);
+	else
+	{
+		if (*(*gnrl->map.tab + ft_strlen(*gnrl->map.tab) - 1) == ','
+		|| !(*(gnrl->map.tab + 2)) || !(*(gnrl->map.tab + 1)))
+			write(2, "Error\n the argument must follow this format R,G,B!", 68);
+		else if (gnrl->map.ceil_r > 255 || gnrl->map.ceil_r < 0
+		|| gnrl->map.ceil_g > 255 || gnrl->map.ceil_g < 0
+		|| gnrl->map.ceil_b > 255 || gnrl->map.ceil_b < 0)
+			write(2, "Error\n color R,G,B range is [0,255]", 36);
+		else if (gnrl->map.check_c == 1)
+			write(2, "Error\n duplicated line, focus mate!", 36);
+		ft_free(gnrl->map.tab);
+	}
 	exit(0);
 }
 
@@ -48,31 +51,14 @@ void	check_ceil_bis(t_struct *gnrl)
 
 void	check_ceil(t_struct *gnrl)
 {
-	int i;
+	char	*tmp;
 
-	i = -1;
+	tmp = NULL;
 	if (*(gnrl->map.line + 1) == ' ')
-	{
-		gnrl->map.line = ft_strtrim(gnrl->map.line + 1, " ");
-		while (*(gnrl->map.line + ++i))
-			if ((*(gnrl->map.line + i) == ','
-			&& *(gnrl->map.line + i + 1) == ',')
-			|| (*(gnrl->map.line + i) == ','
-			&& *(gnrl->map.line + i + 1) == '\0')
-			|| *gnrl->map.line == ',')
-				ft_error("Error\nargument must follow this format R,G,B!");
-		gnrl->map.tab = ft_split(gnrl->map.line, ',');
-		if (*gnrl->map.tab && *(gnrl->map.tab + 1) && *(gnrl->map.tab + 2)
-		&& !(*(gnrl->map.tab + 3)) && gnrl->map.check_c == 0)
-			check_ceil_bis(gnrl);
-		else
-		{
-			ft_free(gnrl->map.tab);
-			error_ceil(gnrl);
-		}
-	}
+		check_ceil_norm(gnrl, tmp);
 	else
-		error_ceil(gnrl);
+		ft_error("Error\n! element 'F' is not followed by space.");
+	free(gnrl->map.line);
 }
 
 void	continue_vspace(t_struct *gnrl, int *i, int *j)

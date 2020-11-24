@@ -6,7 +6,7 @@
 /*   By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 12:18:29 by knabouss          #+#    #+#             */
-/*   Updated: 2020/11/20 12:10:26 by knabouss         ###   ########.fr       */
+/*   Updated: 2020/11/24 11:59:53 by knabouss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,7 @@ typedef	struct	s_struct
 	char		*image;
 	int			abv;
 	int			filesize;
+	char		*tmp;
 	t_map		map;
 	t_sprite	sprite;
 }				t_struct;
@@ -240,4 +241,7 @@ unsigned char	*fill_fileheader(t_struct *gnrl, unsigned char	*bmpfileheader);
 unsigned char	*fill_infoheader(t_struct *gnrl, unsigned char	*bmpinfoheader);
 void			fd_wrt(int fd, t_struct *gnrl, int i, unsigned char *bmppad);
 void			pos_sprt(t_struct *gnrl, int *i, int *j);
+void			check_flour_norm(t_struct *gnrl, char *tmp);
+void			check_ceil_norm(t_struct *gnrl, char *tmp);
+void			check_map_norm(t_struct *gnrl, int cmp, char *tmp);
 #endif

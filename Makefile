@@ -6,7 +6,7 @@
 #    By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/07 12:20:20 by knabouss          #+#    #+#              #
-#    Updated: 2020/11/19 13:38:17 by knabouss         ###   ########.fr        #
+#    Updated: 2020/11/24 11:50:09 by knabouss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,8 @@ SRCS =	./srcs/raycasting/movement.c \
 		./srcs/parsing/get_next_line.c	\
 		./srcs/parsing/parsing.c	\
 		./srcs/parsing/valid_map.c	\
-		./srcs/parsing/free.c
+		./srcs/parsing/free.c		\
+		./srcs/parsing/normi.c
 
 OBJ =  $(SRCS:.c=.o)
 
