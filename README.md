@@ -15,7 +15,7 @@ Project is created with:
 * MiniLibX library
 	
 ## Setup
-* To run this project for macOS:
+* To run this project on macOS:
 
 ```
 $ cd ../Cub3D
