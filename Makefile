@@ -6,7 +6,7 @@
 #    By: knabouss <knabouss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/07 12:20:20 by knabouss          #+#    #+#              #
-#    Updated: 2020/11/24 11:50:09 by knabouss         ###   ########.fr        #
+#    Updated: 2021/02/15 15:13:03 by knabouss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,6 +55,9 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	 	@gcc $(CFLAGS) $(OBJ)  -lmlx -framework OpenGL -framework AppKit  -o $(NAME)
+		@echo '\033[1;32m' "________________________________"
+		@echo  '\033[1;32m' "COMPILATION DONE, ENJOY THE GAME!"
+		@echo '\033[1;32m' "________________________________"   
 
 clean:
 	@rm -f $(OBJ)
