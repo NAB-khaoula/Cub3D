@@ -3,6 +3,7 @@
 * [Technologies](#technologies)
 * [Setup](#setup)
 * [Ressources](#Ressources)
+* [Saved view of a maze ](#Saved-view-of-a-maze)
 
 ## General info
 CUB3D is a 42-networking project, inspired by the world-famous eponymous 90’s game, Wolfenstein 3D, which was the first FPS ever. The aim of this project is to create a dynamic view inside a maze, in which the player will have to find his way.
